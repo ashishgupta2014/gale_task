@@ -29,6 +29,17 @@ Setup explains about ubuntu os
   create db named: ipl_season_db 
   
   create user postgres with password postgres (all permissions to access db)
+  
+  if you want to use different dbname than modify djangoProject_test/settings.py file
+  DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ipl_season_db', # change db name
+        'USER': 'postgres', # change user
+        'PASSWORD': 'postgres', # change password
+    }
+}
+
 
   Create virtual env basis on above technology versions
   
@@ -51,7 +62,7 @@ Setup explains about ubuntu os
   $ python manage.py migrate
   
   $ python manage.py runserver 0.0.0.0:9002
-  
+ 
  
  
  ## API End Points
