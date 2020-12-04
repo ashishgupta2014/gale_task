@@ -55,6 +55,7 @@ Setup explains about ubuntu os
  
  
  ## API End Points
+ {year} value need to be pass from 2009 to 2017
  * Top 4 teams in terms of wins
  
    end point: api/season/stats/{year}/get_top_4_teams/
