@@ -31,13 +31,21 @@ Setup explains about ubuntu os
   create user postgres with password postgres (all permissions to access db)
   
   if you want to use different dbname than modify djangoProject_test/settings.py file
+  
   DATABASES = {
+  
     'default': {
+    
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        
         'NAME': 'ipl_season_db', # change db name
+        
         'USER': 'postgres', # change user
+        
         'PASSWORD': 'postgres', # change password
+        
     }
+    
 }
 
 
