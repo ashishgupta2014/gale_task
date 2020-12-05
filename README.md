@@ -31,6 +31,7 @@ Setup explains about ubuntu os
   create user postgres with password postgres (all permissions to access db)
   
   if you want to use different dbname than modify djangoProject_test/settings.py file
+  
   otherwise set environment variables db_engine, db_name, db_user, db_password
 
   
