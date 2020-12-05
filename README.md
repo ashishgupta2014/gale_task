@@ -31,24 +31,19 @@ Setup explains about ubuntu os
   create user postgres with password postgres (all permissions to access db)
   
   if you want to use different dbname than modify djangoProject_test/settings.py file
+  otherwise set environment variables db_engine, db_name, db_user, db_password
+
   
-  ```
-  DATABASES = {
-  
+```
+DATABASES = {
     'default': {
-    
        'ENGINE': os.environ.get('db_engine', 'django.db.backends.postgresql_psycopg2'),
         'NAME': os.environ.get('db_name','ipl_season_db'),
         'USER': os.environ.get('db_user','postgres'),
         'PASSWORD': os.environ.get('db_password','postgres'),
-        
-    }
-    
+    }  
 }
 ```
-
-otherwise set environment variables db_engine, db_name, db_user, db_password
-
   Create virtual env basis on above technology versions
   
   $python3 -m venv gale_task_env
