@@ -32,22 +32,22 @@ Setup explains about ubuntu os
   
   if you want to use different dbname than modify djangoProject_test/settings.py file
   
+  ```
   DATABASES = {
   
     'default': {
     
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        
-        'NAME': 'ipl_season_db', # change db name
-        
-        'USER': 'postgres', # change user
-        
-        'PASSWORD': 'postgres', # change password
+       'ENGINE': os.environ.get('db_engine', 'django.db.backends.postgresql_psycopg2'),
+        'NAME': os.environ.get('db_name','ipl_season_db'),
+        'USER': os.environ.get('db_user','postgres'),
+        'PASSWORD': os.environ.get('db_password','postgres'),
         
     }
     
 }
+```
 
+otherwise set environment variables db_engine, db_name, db_user, db_password
 
   Create virtual env basis on above technology versions
   
