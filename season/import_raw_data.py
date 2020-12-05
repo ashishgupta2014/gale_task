@@ -103,46 +103,48 @@ class InitialDataProcessor:
 
         :return:
         """
+        # load match data for each season
         matches = []
         toss_decision_mapper = TossDecision.get_reverse_choice_dict()
         match_result_mapper = MatchResult.get_reverse_choice_dict()
         for index, row in self.matches_df.iterrows():
-            try:
-                if isinstance(row['city'], str) and isinstance(row['venue'], str):
-                    won_by = WonBy.Unknown.value
-                    score = 0
-                    if row['win_by_runs'] > 0:
-                        won_by = WonBy.RUNS.value
-                        score = row['win_by_runs']
-                    elif row['win_by_wickets'] > 0:
-                        won_by = WonBy.WICKETS.value
-                        score = row['win_by_wickets']
-                    matches.append(SeasonMatch(
-                        csv_match_id=int(row['id']),
-                        season=self.seasons[int(row['season'])],
-                        venue=self.city_venues[row['city'] + '__' + row['venue']],
-                        date=row['date'],
-                        team_1=self.teams[row['team1']],
-                        team_2=self.teams[row['team2']],
-                        toss_won_by=self.teams[row['toss_winner']],
-                        toss_decision=toss_decision_mapper[row['toss_decision'].strip().lower()],
-                        result=match_result_mapper[row['result'].strip().lower()],
-                        dl_applied=int(row['dl_applied']),
-                        winner=self.teams[row['winner']] if isinstance(row['winner'], str) else None,
-                        won_by=won_by,
-                        score=score,
-                        man_of_match=self.players[row['player_of_match']]
-                        if isinstance(row['player_of_match'], str) else None,
-                        umpire_1=self.umpires[row['umpire1']] if isinstance(row['umpire1'], str) else None,
-                        umpire_2=self.umpires[row['umpire2']] if isinstance(row['umpire2'], str) else None,
-                        umpire_3=self.umpires[row['umpire3']] if isinstance(row['umpire3'], str) else None
-                    ))
-
-            except Exception as ex:
-                print(ex)
+            if isinstance(row['city'], str) and isinstance(row['venue'], str):
+                won_by = WonBy.Unknown.value
+                score = 0
+                if row['win_by_runs'] > 0:
+                    won_by = WonBy.RUNS.value
+                    score = row['win_by_runs']
+                elif row['win_by_wickets'] > 0:
+                    won_by = WonBy.WICKETS.value
+                    score = row['win_by_wickets']
+                matches.append(SeasonMatch(
+                    csv_match_id=int(row['id']),
+                    season=self.seasons[int(row['season'])],
+                    venue=self.city_venues[row['city'] + '__' + row['venue']],
+                    date=row['date'],
+                    team_1=self.teams[row['team1']],
+                    team_2=self.teams[row['team2']],
+                    toss_won_by=self.teams[row['toss_winner']],
+                    toss_decision=toss_decision_mapper[row['toss_decision'].strip().lower()],
+                    result=match_result_mapper[row['result'].strip().lower()],
+                    dl_applied=int(row['dl_applied']),
+                    winner=self.teams[row['winner']] if isinstance(row['winner'], str) else None,
+                    won_by=won_by,
+                    score=score,
+                    man_of_match=self.players[row['player_of_match']]
+                    if isinstance(row['player_of_match'], str) else None,
+                    umpire_1=self.umpires[row['umpire1']] if isinstance(row['umpire1'], str) else None,
+                    umpire_2=self.umpires[row['umpire2']] if isinstance(row['umpire2'], str) else None,
+                    umpire_3=self.umpires[row['umpire3']] if isinstance(row['umpire3'], str) else None
+                ))
 
         self.season_matches = {match_record.csv_match_id: match_record for match_record in
                                SeasonMatch.objects.bulk_create(matches)}
+
+        # memory clean by deleting unwanted variable
+        del self.umpires
+        del self.seasons
+        del self.matches_df
 
     def save_deliveries_of_matches(self):
         """
