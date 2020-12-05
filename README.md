@@ -30,6 +30,17 @@ Setup explains about ubuntu os
   
   create user postgres with password postgres (all permissions to access db)
   
+  clone the project on specific folder structure
+  
+  $git clone https://github.com/ashishgupta2014/gale_task.git
+  
+  install dependencies
+  
+  $ cd gale_task
+  
+  $ pip install -r requirements.txt
+  
+  
   if you want to use different dbname than modify djangoProject_test/settings.py file
   
   otherwise set environment variables db_engine, db_name, db_user, db_password
@@ -52,16 +63,6 @@ DATABASES = {
   activate the env
   
   $source gale_task_env/bin/activate
-  
-  clone the project on specific folder structure
-  
-  $git clone https://github.com/ashishgupta2014/gale_task.git
-  
-  install dependencies
-  
-  $ cd gale_task
-  
-  $ pip install -r requirements.txt
   
   $ python manage.py migrate
   
